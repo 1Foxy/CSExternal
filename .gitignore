@@ -1,0 +1,13 @@
+
+*.tlog
+*.obj
+*.recipe
+*.exe
+*.ilk
+*.pdb
+*.ifc
+*.json
+*.txt
+*.log
+*.idb
+*.command
