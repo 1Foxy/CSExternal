@@ -40,7 +40,7 @@ void ui::renderMenu() {
         EndChild();
         SameLine();
         SetCursorPosX(110); 
-        BeginChild("##pages", ImVec2(380, 400));
+        BeginChild("##pages", ImVec2(480, 400));
         {
             if (globals.page == 0)
             {
@@ -49,8 +49,6 @@ void ui::renderMenu() {
                 BeginChild("##pages", ImVec2(155, 250), TRUE);
                 {
                     ImGui::Checkbox("Aimbot", &Globals::Aimbot);
-                    if (Globals::Aimbot)
-                    { 
                     ImGui::SameLine();
                     if (ImGui::Combo(".", &selectedItemIndex, items, IM_ARRAYSIZE(items)))
                     {
@@ -76,28 +74,41 @@ void ui::renderMenu() {
                             break;
                         }
                     }
-                    ImGui::Checkbox("UseFOV", &Globals::UseFOV);
-                    if (Globals::UseFOV)
-                    ImGui::SliderInt("FOV", &Globals::aimbotFOV, 0, 140, "%d");
-                    ImGui::SliderFloat("Smooth", &Globals::aimbotSmooth, 0.01f, 1.f, "%f");
-                    ImGui::Checkbox("Use Max Lock Distance", &Globals::UseMaxLockDistance);
-                    if (Globals::UseMaxLockDistance)
-                    ImGui::SliderInt("Max Lock Distance", &Globals::MaxLockDistance, 500, 1000000, "%d");
-                    ImGui::Checkbox("autoShoot", &Globals::autoShoot);
-                    ImGui::SameLine();
-                    ImGui::SliderInt("", &Globals::autoShootDelay, 0, 300, "%d");
-                    ImGui::Checkbox(" ", &Globals::prediction);
-                    ImGui::SameLine();
-                    ImGui::SliderFloat("Prediction ", &Globals::predictionTime, 0.01f, 10.f, "%f");
+                    if (Globals::Aimbot)
+                    {
+                        ImGui::Checkbox("UseFOV", &Globals::UseFOV);
                     }
                 }
                 EndChild();
-                //BeginChild("##pagess", ImVec2(150, 250), TRUE);
-                //if (Globals::Aimbot)
-                //{
+                ImGui::SameLine();
+                BeginChild("##pagesss", ImVec2(150, 250), TRUE);
+                {
+                    if (Globals::Aimbot)
+                    {
+                        if (Globals::UseFOV)
+                            ImGui::SliderInt("FOV", &Globals::aimbotFOV, 0, 140, "%d");
+                        ImGui::SliderFloat("Smooth", &Globals::aimbotSmooth, 0.01f, 1.f, "%f");
+                        ImGui::Checkbox("Use Max Lock Distance", &Globals::UseMaxLockDistance);
+                        if (Globals::UseMaxLockDistance)
+                            ImGui::SliderInt("Max Lock Distance", &Globals::MaxLockDistance, 500, 1000000, "%d");
 
-                //}
-                //EndChild();
+                    }
+                }
+                EndChild();
+                ImGui::SameLine();
+                BeginChild("##pagesssss", ImVec2(150, 250), TRUE);
+                {
+                    if (Globals::Aimbot) {
+                        ImGui::Checkbox("autoShoot", &Globals::autoShoot);
+                        ImGui::SameLine();
+                        ImGui::SliderInt("", &Globals::autoShootDelay, 0, 300, "%d");
+                        ImGui::Checkbox(" ", &Globals::prediction);
+                        ImGui::SameLine();
+                        ImGui::SliderFloat("Prediction ", &Globals::predictionTime, 0.01f, 10.f, "%f");
+                    }
+                }
+                EndChild();
+
             }
             if (globals.page == 1)
             {

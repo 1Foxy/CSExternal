@@ -17,6 +17,6 @@ namespace ui {
 	const char window_title[255] = "BruhBelike";
 	inline ImVec2 screen_res{ 000, 000 };
 	inline ImVec2 window_pos{ 0, 0 };
-	inline ImVec2 window_size{ 500, 300 };
+	inline ImVec2 window_size{ 600, 300 };
 	inline DWORD  window_flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar;
 }
