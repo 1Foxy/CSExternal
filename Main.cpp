@@ -20,7 +20,12 @@ void loopFunction()
         oAimbot.aimbot();
         oVisuals.NoHands();
         oVisuals.Glow();
+<<<<<<< Updated upstream
         oMisc.AutoAccept();
+=======
+       // oMisc.Animated_Clantag();
+        /*oMisc.AutoAccept();*/
+>>>>>>> Stashed changes
 
         // Sleep for 5ms to not use 100% cpu
         std::this_thread::sleep_for(std::chrono::milliseconds(5));
