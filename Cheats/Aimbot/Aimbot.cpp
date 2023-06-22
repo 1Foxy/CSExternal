@@ -4,7 +4,7 @@
 using namespace SDK;
 using namespace std;
 
-void Aimbot::aimbot()
+void __fastcall Aimbot::aimbot()
 {
     if (!Globals::Aimbot) return;
 

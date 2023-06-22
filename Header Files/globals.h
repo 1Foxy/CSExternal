@@ -15,8 +15,10 @@ namespace Globals {
 	inline int autoShootDelay = 50;
 	inline float aimbotSmooth = 1.f;
 	inline int aimbotKey = 1;
+	inline int aimbotFOV = 5;
 	inline int aFOV = 5;
 	inline float predictionTime = 0.f;
+	inline bool UseFOV = true;
 
 	//visuals
 	inline bool Glow = false;
@@ -25,7 +27,6 @@ namespace Globals {
 	inline bool No_Hands = false;
 	inline bool No_Flash = false;
 
-	inline bool UseFOV = true;
 	inline int FOV = 90;
 
 	//misc

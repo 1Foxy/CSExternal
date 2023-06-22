@@ -5,5 +5,5 @@ class Aimbot
 public:
 	
 	int selectedTargetBoneIndex = 8; // head
-	void aimbot();
+	void __fastcall aimbot();
 }; extern Aimbot oAimbot;

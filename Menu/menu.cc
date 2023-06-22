@@ -74,12 +74,9 @@ void ui::renderMenu() {
                             break;
                         }
                     }
-<<<<<<< Updated upstream
                     ImGui::SliderInt("FOV", &Globals::aFOV, 0, 120,"%d");
-=======
                     ImGui::Checkbox("UseFOV", &Globals::UseFOV);
                     ImGui::SliderInt("FOV", &Globals::aimbotFOV, 0, 140, "%d");
->>>>>>> Stashed changes
                     ImGui::SliderFloat("Smooth", &Globals::aimbotSmooth, 0.01f, 1.f, "%f");
                     ImGui::Checkbox("autoShoot", &Globals::autoShoot);
                     ImGui::SameLine();
