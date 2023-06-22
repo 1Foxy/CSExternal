@@ -8,7 +8,6 @@ public:
 	
 	int selectedTargetBoneIndex = 8;
 	// head
-	void __fastcall init();
 	void __fastcall aimbot();
 private:
 	bool __fastcall MaxLockDistance(DWORD localPlayer, DWORD entity);

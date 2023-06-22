@@ -5,6 +5,8 @@
 void TriggerBot::AutoShootOnEnemy()
 {
     if (Globals::Triggerbot) {
+        LocalPlayer = mem.read<DWORD>(g_client_base + hazedumper::signatures::dwLocalPlayer);
+        if (!LocalPlayer) return;
         // Get the local player's crosshair ID
         int crosshairId = mem.read<int>(LocalPlayer + hazedumper::netvars::m_iCrosshairId);
 
@@ -29,11 +31,6 @@ void TriggerBot::AutoShootOnEnemy()
             }
         }
     }
-}
-
-void __fastcall TriggerBot::init()
-{
-    LocalPlayer = mem.read<DWORD>(g_client_base + hazedumper::signatures::dwLocalPlayer);
 }
 
 TriggerBot oTriggerBot;

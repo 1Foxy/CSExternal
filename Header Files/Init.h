@@ -8,7 +8,5 @@ namespace INIT
 	void Initialize()
 	{
 	  oRecoilControlSystem.InitRCS();
-	  oAimbot.init();
-	  oTriggerBot.init();
 	}
 }

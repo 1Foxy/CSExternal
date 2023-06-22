@@ -21,7 +21,7 @@ namespace Globals {
 	inline bool RCS_Enabled = false;
 
 	//triggerbot
-	inline bool Triggerbot = true;
+	inline bool Triggerbot = false;
 	inline int autoShootDelay = 50;
 
 	//visuals
