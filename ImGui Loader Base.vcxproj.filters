@@ -90,6 +90,7 @@
     <ClInclude Include="Cheats\Aimbot\Aimbot.h" />
     <ClInclude Include="Valve\SDK\Color.h" />
     <ClInclude Include="Cheats\RCS\RecoilControlSystem.h" />
+    <ClInclude Include="Header Files\Init.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">

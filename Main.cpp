@@ -120,6 +120,7 @@ int APIENTRY WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     icons_config.OversampleH = 3;
     icons_config.OversampleV = 3;
     io.Fonts->AddFontDefault();
+    
 
     MSG msg;
     ZeroMemory(&msg, sizeof(msg));

@@ -132,8 +132,8 @@ void Aimbot::aimbot() {
 
                 if (Globals::autoShoot) {
                     Sleep(Globals::autoShootDelay);
-                    mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, NULL);
-                    mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, NULL);
+                    mem.write<int>(g_client_base + hazedumper::signatures::dwForceAttack, 6);
+
                 }
 
                 SDK::Vector2D currentAngles = {

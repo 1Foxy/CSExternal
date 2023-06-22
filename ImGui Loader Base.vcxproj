@@ -163,6 +163,7 @@
     <ClInclude Include="Cheats\Aimbot\Aimbot.h" />
     <ClInclude Include="Cheats\Misc\Misc.h" />
     <ClInclude Include="Cheats\RCS\RecoilControlSystem.h" />
+    <ClInclude Include="Header Files\Init.h" />
     <ClInclude Include="Valve\SDK\Color.h" />
     <ClInclude Include="Valve\SDK\SDK.h" />
     <ClInclude Include="Valve\SDK\Const.h" />

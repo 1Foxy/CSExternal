@@ -20,7 +20,8 @@ namespace Globals {
 	inline bool UseFOV = true;
 
 	// RCS
-	float RCS_Amount = 1.0f;
+	inline float RCS_Amount = 1.0f;
+	inline bool RCS_Enabled = false;
 
 	//visuals
 	inline bool Glow = false;

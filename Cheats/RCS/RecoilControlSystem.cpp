@@ -1,64 +1,33 @@
 #include "RecoilControlSystem.h"
+
+#include "../../Valve/SDK/Vector3.h"
 #include "../../Valve/SDK/Const.h"
 #include "../../Valve/SDK/SDK.h"
 #include "../../Valve/SDK/Vector3.h"
 
+
 using namespace SDK;
 using namespace std;
+//Vec3* aimRecoilPunch;
+//Vec3* oPunch[3]{ 0, 0, 0 };
+//Vec3* viewAngles;
 
-VVector3 RecoilControlSystem::ClampAngle(VVector3 angle)
+void RecoilControlSystem::InitRCS()
 {
-    if (angle.x > 89.0f)
-        angle.x = 89.0f;
-
-    if (angle.x < -89.0f)
-        angle.x = -89.0f;
-
-    while (angle.y > 180)
-        angle.y -= 360;
-
-    while (angle.y < -180)
-        angle.y += 360;
-
-    angle.z = 0;
-
-    return angle;
+    //LocalPlayer = (DWORD)mem.read<DWORD>(g_client_base + hazedumper::signatures::dwLocalPlayer);
+    //ClientState = (DWORD)mem.read<DWORD>(g_engine + hazedumper::signatures::dwClientState);
+    //ShotsFired = (int*)mem.read<DWORD>(LocalPlayer + hazedumper::netvars::m_iShotsFired);
+    //viewAngles = (Vec3*)(*(uintptr_t*)(g_engine + ClientState) = hazedumper::signatures::dwClientState_ViewAngles);
+    //aimRecoilPunch = (Vec3*)(LocalPlayer + hazedumper::netvars::m_aimPunchAngle);
 }
 
-struct Vec3
-{
-    float x, y, z;
-    Vec3 operator+(Vec3 d)
-    {
-		return { x + d.x, y + d.y, z + d.z };
-	}
-    Vec3 operator-(Vec3 d)
-    {
-		return { x - d.x, y - d.y, z - d.z };
-	}
-    Vec3 operator*(float d)
-    {
-        return { x * d, y * d, z * d };
-    }
-};
-
-Vec3* aimRecoilPunch;
-Vec3* oPunch{ 0, 0, 0 };
-
-
-void RecoilControlSystem::ControlSpray()
-{
-    ShotsFired = (int*)mem.read<DWORD>(LocalPlayer + hazedumper::netvars::m_iShotsFired);
-    aimRecoilPunch = (Vec3*)mem.read<DWORD>(LocalPlayer + hazedumper::netvars::m_aimPunchAngle); 
-
-}
 
 void RecoilControlSystem::RCS()
 {
-    if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
-        ControlSpray();
+    //if (GetAsyncKeyState(VK_LBUTTON) && Globals::RCS_Enabled)
+    
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    //std::this_thread::sleep_for(std::chrono::milliseconds(10));
 }
 
 RecoilControlSystem oRecoilControlSystem;
