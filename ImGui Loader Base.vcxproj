@@ -139,6 +139,7 @@
     <ClCompile Include="Cheats\Aimbot\Aimbot.cpp" />
     <ClCompile Include="Cheats\Misc\Misc.cpp" />
     <ClCompile Include="Cheats\RCS\RecoilControlSystem.cpp" />
+    <ClCompile Include="Cheats\Triggerbot\TriggerBot.cpp" />
     <ClCompile Include="Valve\SDK\SDK.cpp" />
     <ClCompile Include="Valve\SDK\CRC.cpp" />
     <ClCompile Include="Valve\Engine.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Cheats\Misc\Misc.h" />
     <ClInclude Include="Cheats\RCS\RecoilControlSystem.h" />
     <ClInclude Include="Header Files\Init.h" />
+    <ClInclude Include="Cheats\Triggerbot\TriggerBot.h" />
     <ClInclude Include="Valve\SDK\Color.h" />
     <ClInclude Include="Valve\SDK\SDK.h" />
     <ClInclude Include="Valve\SDK\Const.h" />

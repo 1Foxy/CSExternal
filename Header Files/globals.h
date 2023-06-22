@@ -7,12 +7,9 @@ namespace Globals {
 
 	//aimbot
 	inline bool Aimbot = false;
-	inline bool autoShoot = false;
 	inline bool prediction = false;
 	inline bool RCS = true;
-	inline int autoShootDelay = 50;
 	inline float aimbotSmooth = 1.f;
-	inline int aimbotKey = 1;
 	inline int aimbotFOV = 5;
 	inline float predictionTime = 0.f;
 	inline bool UseMaxLockDistance = true;
@@ -22,6 +19,10 @@ namespace Globals {
 	// RCS
 	inline float RCS_Amount = 1.0f;
 	inline bool RCS_Enabled = false;
+
+	//triggerbot
+	inline bool Triggerbot = true;
+	inline int autoShootDelay = 50;
 
 	//visuals
 	inline bool Glow = false;

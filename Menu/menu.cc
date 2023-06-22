@@ -99,7 +99,7 @@ void ui::renderMenu() {
                 BeginChild("##pagesssss", ImVec2(150, 250), TRUE);
                 {
                     if (Globals::Aimbot) {
-                        ImGui::Checkbox("autoShoot", &Globals::autoShoot);
+                        ImGui::Checkbox("Trigger Bot", &Globals::Triggerbot);
                         ImGui::SameLine();
                         ImGui::SliderInt("", &Globals::autoShootDelay, 0, 300, "%d");
                         ImGui::Checkbox(" ", &Globals::prediction);

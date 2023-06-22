@@ -19,23 +19,24 @@ struct PlayerInfo {
 
 std::vector<PlayerInfo> players;
 
-void Aimbot::aimbot() {
+void __fastcall Aimbot::init() {
+    DWORD localPlayer = mem.read<DWORD>(g_client_base + hazedumper::signatures::dwLocalPlayer);
+}
+
+void __fastcall Aimbot::aimbot() {
     if (!Globals::Aimbot) return;
     players.clear();
     DWORD currentTarget = 0;
 
     // Cache some values
     int TargetFOV = Globals::aimbotFOV;
-
-    DWORD localPlayer = mem.read<DWORD>(g_client_base + hazedumper::signatures::dwLocalPlayer);
     if (!localPlayer) return;
 
     int localPlayerTeam = mem.read<int>(localPlayer + hazedumper::netvars::m_iTeamNum);
-    DWORD enginePointer = mem.read<DWORD>(g_engine + hazedumper::signatures::dwClientState);
 
     VVector3 localAngle = {
-        mem.read<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles),
-        mem.read<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles + 0x4),
+        mem.read<float>(g_engine + hazedumper::signatures::dwClientState_ViewAngles),
+        mem.read<float>(g_engine + hazedumper::signatures::dwClientState_ViewAngles + 0x4),
         mem.read<float>(localPlayer + hazedumper::netvars::m_vecViewOffset + 0x8)
     };
 
@@ -130,15 +131,9 @@ void Aimbot::aimbot() {
 
                 angleVec.Normalize(angleVec);
 
-                if (Globals::autoShoot) {
-                    Sleep(Globals::autoShootDelay);
-                    mem.write<int>(g_client_base + hazedumper::signatures::dwForceAttack, 6);
-
-                }
-
                 SDK::Vector2D currentAngles = {
-                    mem.read<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles),
-                    mem.read<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles + 0x4)
+                    mem.read<float>(g_engine + hazedumper::signatures::dwClientState_ViewAngles),
+                    mem.read<float>(g_engine + hazedumper::signatures::dwClientState_ViewAngles + 0x4)
                 };
 
                 SDK::Vector2D newAngles = {
@@ -146,8 +141,8 @@ void Aimbot::aimbot() {
                     lerp(currentAngles.y, angleVec.y, Globals::aimbotSmooth)
                 };
 
-                mem.write<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles, newAngles.x);
-                mem.write<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles + 0x4, newAngles.y);
+                mem.write<float>(g_engine + hazedumper::signatures::dwClientState_ViewAngles, newAngles.x);
+                mem.write<float>(g_engine + hazedumper::signatures::dwClientState_ViewAngles + 0x4, newAngles.y);
             }
         }
     }

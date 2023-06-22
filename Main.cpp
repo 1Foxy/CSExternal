@@ -21,6 +21,7 @@ void loopFunction()
         oAimbot.aimbot();
         oVisuals.NoHands();
         oVisuals.Glow();
+        oTriggerBot.AutoShootOnEnemy();
         /*oMisc.AutoAccept();*/
 
         // Sleep for 5ms to not use 100% cpu

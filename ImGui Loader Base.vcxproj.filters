@@ -39,6 +39,7 @@
     <ClCompile Include="Cheats\Visuals\Visuals.cpp" />
     <ClCompile Include="Cheats\Aimbot\Aimbot.cpp" />
     <ClCompile Include="Cheats\RCS\RecoilControlSystem.cpp" />
+    <ClCompile Include="Cheats\Triggerbot\TriggerBot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -91,6 +92,7 @@
     <ClInclude Include="Valve\SDK\Color.h" />
     <ClInclude Include="Cheats\RCS\RecoilControlSystem.h" />
     <ClInclude Include="Header Files\Init.h" />
+    <ClInclude Include="Cheats\Triggerbot\TriggerBot.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">
