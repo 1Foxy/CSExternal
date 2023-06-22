@@ -19,6 +19,9 @@ namespace Globals {
 	inline int MaxLockDistance = 100000000;
 	inline bool UseFOV = true;
 
+	// RCS
+	float RCS_Amount = 1.0f;
+
 	//visuals
 	inline bool Glow = false;
 	inline bool Glow_Team = false;

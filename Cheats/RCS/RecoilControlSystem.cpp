@@ -43,21 +43,14 @@ struct Vec3
 };
 
 Vec3* aimRecoilPunch;
+Vec3* oPunch{ 0, 0, 0 };
+
 
 void RecoilControlSystem::ControlSpray()
 {
     ShotsFired = (int*)mem.read<DWORD>(LocalPlayer + hazedumper::netvars::m_iShotsFired);
-    if (ShotsFired > 1)
-    {
-        Angle = mem.read<VVector3>(LocalPlayer + hazedumper::netvars::m_aimPunchAngle);
-        AimPunch = OldAngle - Angle * 2.0f;
-        AimPunch = ClampAngle(AimPunch);
-        mem.write<VVector3>(ClientState + hazedumper::signatures::dwClientState_ViewAngles, AimPunch);
-    }
-    else
-    {
-        OldAngle = mem.read<VVector3>(ClientState + hazedumper::signatures::dwClientState_ViewAngles);
-    }
+    aimRecoilPunch = (Vec3*)mem.read<DWORD>(LocalPlayer + hazedumper::netvars::m_aimPunchAngle); 
+
 }
 
 void RecoilControlSystem::RCS()
