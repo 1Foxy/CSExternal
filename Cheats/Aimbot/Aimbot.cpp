@@ -61,7 +61,7 @@ void __fastcall Aimbot::aimbot()
         if (distY > 180.0f) distY -= 360.0f;
 
         float fov = std::sqrt(distX * distX + distY * distY);
-        if (fov > Globals::aFOV && Globals::UseFOV) continue;
+        if (fov > Globals::aimbotFOV && Globals::UseFOV) continue;
         distanceSq = (localPos - entityPos).LengthSq();
         if (distanceSq < closestDistance) {
             DWORD curGlowIndex = mem.read<DWORD>(entity + hazedumper::netvars::m_iGlowIndex);
