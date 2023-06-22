@@ -8,16 +8,14 @@ namespace Globals {
 	//aimbot
 	inline bool Aimbot = false;
 	inline bool autoShoot = false;
-	inline bool lockClosestPlayer = true;
 	inline bool prediction = false;
 	inline bool RCS = true;
-
 	inline int autoShootDelay = 50;
 	inline float aimbotSmooth = 1.f;
 	inline int aimbotKey = 1;
 	inline int aimbotFOV = 5;
-	inline int aFOV = 5;
 	inline float predictionTime = 0.f;
+	inline int MaxLockDistance = 100000000;
 	inline bool UseFOV = true;
 
 	//visuals
@@ -26,8 +24,8 @@ namespace Globals {
 	inline bool Glow_Weapons = false;
 	inline bool No_Hands = false;
 	inline bool No_Flash = false;
+	inline int CameraFOV = 90;
 
-	inline int FOV = 90;
 
 	//misc
 	inline bool autoAccept = false;

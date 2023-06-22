@@ -2,7 +2,6 @@
 
 #include "common.h"
 #include "../Valve/SDK/Vector3.h"
-#include <Psapi.h>
 
 class c_memory
 {
@@ -74,36 +73,6 @@ public:
 	{
 		WriteProcessMemory(m_handle, reinterpret_cast<void*>(address), &value, sizeof(value), nullptr);
 	}
-
-	static DWORD FindPattern(const char* module_name, const BYTE* mask, const char* mask_string)
-	{
-		/// Get module address
-		const unsigned int module_address = reinterpret_cast<unsigned int>(GetModuleHandle(module_name));
-
-		/// Get module information to the size
-		MODULEINFO module_info;
-		GetModuleInformation(GetCurrentProcess(), reinterpret_cast<HMODULE>(module_address), &module_info, sizeof(MODULEINFO));
-
-		auto IsCorrectMask = [](const unsigned char* data, const unsigned char* mask, const char* mask_string) -> bool
-		{
-			for (; *mask_string; ++mask_string, ++mask, ++data)
-				if (*mask_string == 'x' && *mask != *data)
-					return false;
-
-			return (*mask_string) == 0;
-		};
-
-		/// Iterate until we find a matching mask
-		for (unsigned int c = 0; c < module_info.SizeOfImage; c += 1)
-		{
-			/// does it match?
-			if (IsCorrectMask(reinterpret_cast<unsigned char*>(module_address + c), mask, mask_string))
-				return (module_address + c);
-		}
-
-		return 0;
-	}
-
 
 	MODULEENTRY32 get_module(const std::string_view module_name)
 	{

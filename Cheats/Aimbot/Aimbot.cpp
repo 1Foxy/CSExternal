@@ -3,10 +3,29 @@
 #include "../../Valve/SDK/SDK.h"
 using namespace SDK;
 using namespace std;
+#include <algorithm>
+// vector3
+#include "../../Valve/SDK/Vector3.h"
 
-void __fastcall Aimbot::aimbot()
-{
+
+struct PlayerInfo {
+    DWORD entity;
+    int health;
+    bool dormant;
+    bool inAirOrCrouching;
+    VVector3 pos;
+    float distanceSq;
+};
+
+std::vector<PlayerInfo> players;
+
+void Aimbot::aimbot() {
     if (!Globals::Aimbot) return;
+    players.clear();
+    DWORD currentTarget = 0;
+
+    // Cache some values
+    int TargetFOV = Globals::aimbotFOV;
 
     DWORD localPlayer = mem.read<DWORD>(g_client_base + hazedumper::signatures::dwLocalPlayer);
     if (!localPlayer) return;
@@ -14,27 +33,19 @@ void __fastcall Aimbot::aimbot()
     int localPlayerTeam = mem.read<int>(localPlayer + hazedumper::netvars::m_iTeamNum);
     DWORD enginePointer = mem.read<DWORD>(g_engine + hazedumper::signatures::dwClientState);
 
-    float oldDistX = 11111111.0f;
-    float oldDistY = 11111111.0f;
-
-    int target = 0;
-    int targetHealth = 0;
-    bool targetDormant = true;
-    VVector3 targetPos, localPos, entityPos;
-    float closestDistance = FLT_MAX;
-    float distanceSq;
-    VVector3 targetDistance;
-
     VVector3 localAngle = {
         mem.read<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles),
         mem.read<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles + 0x4),
         mem.read<float>(localPlayer + hazedumper::netvars::m_vecViewOffset + 0x8)
     };
 
-    localPos.x = mem.read<float>(localPlayer + hazedumper::netvars::m_vecOrigin);
-    localPos.y = mem.read<float>(localPlayer + hazedumper::netvars::m_vecOrigin + 0x4);
-    localPos.z = mem.read<float>(localPlayer + hazedumper::netvars::m_vecOrigin + 0x8) + localAngle.z;
+    VVector3 localPos = {
+        mem.read<float>(localPlayer + hazedumper::netvars::m_vecOrigin),
+        mem.read<float>(localPlayer + hazedumper::netvars::m_vecOrigin + 0x4),
+        mem.read<float>(localPlayer + hazedumper::netvars::m_vecOrigin + 0x8) + localAngle.z
+    };
 
+    // Fill players with all active entities
     for (int i = 1; i < 32; i++) {
         DWORD entity = mem.read<DWORD>(g_client_base + hazedumper::signatures::dwEntityList + i * 0x10);
         if (entity == 0) continue;
@@ -42,84 +53,135 @@ void __fastcall Aimbot::aimbot()
         int entityTeam = mem.read<int>(entity + hazedumper::netvars::m_iTeamNum);
         if (entityTeam == localPlayerTeam) continue;  // Skip friendly team members
 
-        int entityHealth = mem.read<int>(entity + hazedumper::netvars::m_iHealth);
         bool entityDormant = mem.read<bool>(entity + hazedumper::signatures::m_bDormant);
+        int entityHealth = mem.read<int>(entity + hazedumper::netvars::m_iHealth);
+        if (IsDead(entity) || entityDormant || entityHealth <= 0) continue;
 
         DWORD entityBones = mem.read<DWORD>(entity + hazedumper::netvars::m_dwBoneMatrix);
 
+        VVector3 entityPos;
         entityPos.x = mem.read<float>(entityBones + 0x30 * oAimbot.selectedTargetBoneIndex + 0x0C);
         entityPos.y = mem.read<float>(entityBones + 0x30 * oAimbot.selectedTargetBoneIndex + 0x1C);
         entityPos.z = mem.read<float>(entityBones + 0x30 * oAimbot.selectedTargetBoneIndex + 0x2C);
 
-        VVector3 tmp = localPos - entityPos;
-        SDK::Vector2D angleVec = tmp.CalculateAngles(tmp);
+        float distanceSq = (localPos - entityPos).LengthSq();
+        bool inAirOrCrouching = IsCrouchingOrInAir(entity);
 
-        float distX = std::abs(angleVec.x - localAngle.x);
-        if (distX > 89.0f) distX -= 360.0f;
 
-        float distY = std::abs(angleVec.y - localAngle.y);
-        if (distY > 180.0f) distY -= 360.0f;
+        players.push_back({ entity, entityHealth, entityDormant, inAirOrCrouching, entityPos, distanceSq });
+    }
 
-        float fov = std::sqrt(distX * distX + distY * distY);
-        if (fov > Globals::aFOV && Globals::UseFOV) continue;
-        distanceSq = (localPos - entityPos).LengthSq();
-        if (distanceSq < closestDistance) {
-            DWORD curGlowIndex = mem.read<DWORD>(entity + hazedumper::netvars::m_iGlowIndex);
-            DWORD glowObj = mem.read<DWORD>(g_client_base + hazedumper::signatures::dwGlowObjectManager);
 
-            mem.write<float>(glowObj + curGlowIndex * 0x38 + 0x8, 0.0);
-            mem.write<float>(glowObj + curGlowIndex * 0x38 + 0xC, 2.0);
-            mem.write<float>(glowObj + curGlowIndex * 0x38 + 0x10, 0.0);
+    // Filter by FOV
+    if (Globals::UseFOV)
+    {
+        players.erase(std::remove_if(players.begin(), players.end(), [localAngle, localPos, TargetFOV](const PlayerInfo& player) {
+            VVector3 tmp = localPos - player.pos;
+            SDK::Vector2D angleVec = tmp.CalculateAngles(tmp);
+            float distX = std::abs(angleVec.x - localAngle.x);
+            if (distX > 89.0f) distX -= 360.0f;
+            float distY = std::abs(angleVec.y - localAngle.y);
+            if (distY > 180.0f) distY -= 360.0f;
+            float fov = std::sqrt(distX * distX + distY * distY);
+            return fov > TargetFOV;
+        }), players.end());
+    }
 
-            closestDistance = distanceSq;
-            targetDistance = tmp;
-            oldDistX = distX;
-            oldDistY = distY;
-            target = entity;
-            targetHealth = entityHealth;
-            targetDormant = entityDormant;
-            targetPos = entityPos;
+    // if players.lent is 0, return
+    if (players.empty()) return;
+    
+    // Sort by distance
+    std::sort(players.begin(), players.end(), [](const PlayerInfo& a, const PlayerInfo& b) {
+        if (a.inAirOrCrouching != b.inAirOrCrouching) {
+            return a.inAirOrCrouching > b.inAirOrCrouching;
+        }
+        return a.distanceSq < b.distanceSq;
+    });
+
+    // Check if its in the max lock distance
+    for (auto it = players.begin(); it != players.end();) {
+        if (!MaxLockDistance(localPlayer, it->entity)) {
+            it = players.erase(it);
+        }
+        else {
+            ++it;
         }
     }
 
-    if (GetAsyncKeyState(0x12) < 0 && localPlayer != 0) {
-        if (target != 0 && targetHealth > 0) {
-            if (Globals::lockClosestPlayer) { // Check the boolean variable to lock onto the closest player
-                target = 0; // Reset the target to lock onto the closest player
-                closestDistance = FLT_MAX;
-                oldDistX = 11111111.0;
-                oldDistY = 11111111.0;
+    // Now lock onto the target (the closest visible enemy in the FOV)
+    if (!players.empty()) {
+        // If currentTarget is not valid, find a new target
+        if (IsDead(currentTarget) || !MaxLockDistance(localPlayer, currentTarget)) {
+            currentTarget = players[0].entity;
+        }
+
+        // Only proceed if the target is alive
+        if (mem.read<int>(currentTarget + hazedumper::netvars::m_iHealth) > 0) {
+            VVector3 targetPos;
+            DWORD targetBones = mem.read<DWORD>(currentTarget + hazedumper::netvars::m_dwBoneMatrix);
+            targetPos.x = mem.read<float>(targetBones + 0x30 * oAimbot.selectedTargetBoneIndex + 0x0C);
+            targetPos.y = mem.read<float>(targetBones + 0x30 * oAimbot.selectedTargetBoneIndex + 0x1C);
+            targetPos.z = mem.read<float>(targetBones + 0x30 * oAimbot.selectedTargetBoneIndex + 0x2C);
+
+            if (GetAsyncKeyState(0x12) < 0 && localPlayer != 0) {
+                VVector3 tmp = localPos - targetPos;
+                SDK::Vector2D angleVec = tmp.CalculateAngles(tmp);
+
+                angleVec.Normalize(angleVec);
+
+                if (Globals::autoShoot) {
+                    Sleep(Globals::autoShootDelay);
+                    mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, NULL);
+                    mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, NULL);
+                }
+
+                SDK::Vector2D currentAngles = {
+                    mem.read<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles),
+                    mem.read<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles + 0x4)
+                };
+
+                SDK::Vector2D newAngles = {
+                    lerp(currentAngles.x, angleVec.x, Globals::aimbotSmooth),
+                    lerp(currentAngles.y, angleVec.y, Globals::aimbotSmooth)
+                };
+
+                mem.write<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles, newAngles.x);
+                mem.write<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles + 0x4, newAngles.y);
             }
-
-            VVector3 tmp = localPos - targetPos;
-            SDK::Vector2D angleVec = tmp.CalculateAngles(tmp);
-
-            angleVec.Normalize(angleVec);
-
-            if (Globals::autoShoot) {
-                Sleep(Globals::autoShootDelay);
-                mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, NULL);
-                mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, NULL);
-            }
-
-            SDK::Vector2D currentAngles = {
-                mem.read<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles),
-                mem.read<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles + 0x4)
-            };
-
-            SDK::Vector2D newAngles = {
-                lerp(currentAngles.x, angleVec.x, Globals::aimbotSmooth),
-                lerp(currentAngles.y, angleVec.y, Globals::aimbotSmooth)
-            };
-
-            mem.write<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles, newAngles.x);
-            mem.write<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles + 0x4, newAngles.y);
-
-            Sleep(1);
         }
     }
 }
 
+bool Aimbot::MaxLockDistance(DWORD localPlayer, DWORD entity)
+{
+    // We'll assume that if the entity is within a certain range, it's visible.
+    int maxVisibleDistance = Globals::MaxLockDistance;  // Units in game distance. Change to appropriate value.
+
+    VVector3 localPlayerPos;
+    localPlayerPos.x = mem.read<float>(localPlayer + hazedumper::netvars::m_vecOrigin);
+    localPlayerPos.y = mem.read<float>(localPlayer + hazedumper::netvars::m_vecOrigin + 0x4);
+    localPlayerPos.z = mem.read<float>(localPlayer + hazedumper::netvars::m_vecOrigin + 0x8);
+
+    DWORD entityBones = mem.read<DWORD>(entity + hazedumper::netvars::m_dwBoneMatrix);
+
+    VVector3 entityPos;
+    entityPos.x = mem.read<float>(entityBones + 0x30 * oAimbot.selectedTargetBoneIndex + 0x0C);
+    entityPos.y = mem.read<float>(entityBones + 0x30 * oAimbot.selectedTargetBoneIndex + 0x1C);
+    entityPos.z = mem.read<float>(entityBones + 0x30 * oAimbot.selectedTargetBoneIndex + 0x2C);
+
+    float distance = (localPlayerPos - entityPos).Length();
+
+    return distance <= maxVisibleDistance;
+}
+
+bool Aimbot::IsDead(DWORD entity) {
+    int entityHealth = mem.read<int>(entity + hazedumper::netvars::m_iHealth);
+    return entityHealth <= 0;
+}
+
+bool Aimbot::IsCrouchingOrInAir(DWORD entity) {
+    int entityFlags = mem.read<int>(entity + hazedumper::netvars::m_fFlags);
+    return entityFlags == 263 || entityFlags == 256; // Change these values according to the specific game
+}
+
 Aimbot oAimbot;
-
-

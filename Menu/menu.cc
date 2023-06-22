@@ -74,17 +74,17 @@ void ui::renderMenu() {
                             break;
                         }
                     }
-                    ImGui::SliderInt("FOV", &Globals::aFOV, 0, 120,"%d");
                     ImGui::Checkbox("UseFOV", &Globals::UseFOV);
                     ImGui::SliderInt("FOV", &Globals::aimbotFOV, 0, 140, "%d");
                     ImGui::SliderFloat("Smooth", &Globals::aimbotSmooth, 0.01f, 1.f, "%f");
+                    ImGui::SliderInt("Max Lock Distance", &Globals::MaxLockDistance, 500, 1000000, "%d");
                     ImGui::Checkbox("autoShoot", &Globals::autoShoot);
                     ImGui::SameLine();
                     ImGui::SliderInt("", &Globals::autoShootDelay, 0, 300, "%d");
-                    ImGui::Checkbox("Closest Player", &Globals::lockClosestPlayer);
                     ImGui::Checkbox(" ", &Globals::prediction);
                     ImGui::SameLine();
                     ImGui::SliderFloat("Prediction ", &Globals::predictionTime, 0.01f, 10.f, "%f");
+                    
                 }
                 EndChild();
             }
@@ -97,7 +97,8 @@ void ui::renderMenu() {
                     ImGui::Checkbox("Glow", &Globals::Glow);
                     ImGui::Checkbox("Teammates", &Globals::Glow_Team);
                    // ImGui::Checkbox("Weapons", &Globals::Glow_Weapons);
-                    ImGui::SliderInt("FOV", &Globals::FOV, 0, 140, "%d");
+                    ImGui::SliderInt("Camera FOV", &Globals::CameraFOV, 1, 140, "%d");
+                    
            
 
 

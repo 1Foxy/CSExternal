@@ -38,6 +38,7 @@
     <ClCompile Include="Valve\SDK\SDK.cpp" />
     <ClCompile Include="Cheats\Visuals\Visuals.cpp" />
     <ClCompile Include="Cheats\Aimbot\Aimbot.cpp" />
+    <ClCompile Include="Cheats\RCS\RecoilControlSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -88,6 +89,7 @@
     <ClInclude Include="Cheats\Visuals\Visuals.h" />
     <ClInclude Include="Cheats\Aimbot\Aimbot.h" />
     <ClInclude Include="Valve\SDK\Color.h" />
+    <ClInclude Include="Cheats\RCS\RecoilControlSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">

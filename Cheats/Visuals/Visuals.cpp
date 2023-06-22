@@ -39,7 +39,7 @@ void Visuals::Fov()
     int flags = mem.read<int>(localPlayer + hazedumper::netvars::m_fFlags);
 
 
-    if (Globals::FOV == 90)
+    if (Globals::CameraFOV == 90)
         return;
 
     auto local_player = SDK::get_local_player();
@@ -49,7 +49,7 @@ void Visuals::Fov()
     if (local_player->isScoped())
         return;
 
-    mem.write<int>(localPlayer + hazedumper::netvars::m_iDefaultFOV, Globals::FOV);
+    mem.write<int>(localPlayer + hazedumper::netvars::m_iDefaultFOV, Globals::CameraFOV);
      
 }
 
@@ -63,35 +63,35 @@ void Visuals::NoHands()
 }
 
 void Visuals::Glow() {
-    if (Globals::Glow) {
-        // glow
-        const auto localPlayer = mem.read<std::uintptr_t>(g_client_base + hazedumper::signatures::dwLocalPlayer);
-        const auto glowObjectManager = mem.read<std::uintptr_t>(g_client_base + hazedumper::signatures::dwGlowObjectManager);
-        const auto localPlayerTeam = mem.read<int32_t>(localPlayer + hazedumper::netvars::m_iTeamNum);
+    if (!Globals::Glow)
+    return;
 
-        for (auto i = 1; i <= 32; ++i)
-        {
-            const auto entity = mem.read<std::uintptr_t>(g_client_base + hazedumper::signatures::dwEntityList + i * 0x10);
+    // glow
+    const auto localPlayer = mem.read<std::uintptr_t>(g_client_base + hazedumper::signatures::dwLocalPlayer);
+    const auto glowObjectManager = mem.read<std::uintptr_t>(g_client_base + hazedumper::signatures::dwGlowObjectManager);
+    const auto localPlayerTeam = mem.read<int32_t>(localPlayer + hazedumper::netvars::m_iTeamNum);
 
-            if (!entity)
-                continue;
+    for (auto i = 1; i <= 32; ++i)
+    {
+        const auto entity = mem.read<std::uintptr_t>(g_client_base + hazedumper::signatures::dwEntityList + i * 0x10);
 
-            const auto entityTeam = mem.read<int32_t>(entity + hazedumper::netvars::m_iTeamNum);
+        if (!entity)
+            continue;
 
-            // Check if the entity is on our team and the GlowTeam flag is disabled
-            if (entityTeam == localPlayerTeam && !Globals::Glow_Team)
-                continue;
+        const auto entityTeam = mem.read<int32_t>(entity + hazedumper::netvars::m_iTeamNum);
 
-            const auto glowIndex = mem.read<int32_t>(entity + hazedumper::netvars::m_iGlowIndex);
+        // Check if the entity is on our team and the GlowTeam flag is disabled
+        if (entityTeam == localPlayerTeam && !Globals::Glow_Team)
+            continue;
 
-            // do glow by writing each variable
-            auto color = Color{ Globals::EnemyglowColorRed, Globals::EnemyglowColorGreen, Globals::EnemyglowColorBlue };
-            mem.write<Color>(glowObjectManager + (glowIndex * 0x38) + 0x8, color);
+        const auto glowIndex = mem.read<int32_t>(entity + hazedumper::netvars::m_iGlowIndex);
 
-            mem.write<bool>(glowObjectManager + (glowIndex * 0x38) + 0x28, true);
-            mem.write<bool>(glowObjectManager + (glowIndex * 0x38) + 0x29, false);
-        }
+        // do glow by writing each variable
+        auto color = Color{ Globals::EnemyglowColorRed, Globals::EnemyglowColorGreen, Globals::EnemyglowColorBlue };
+        mem.write<Color>(glowObjectManager + (glowIndex * 0x38) + 0x8, color);
 
+        mem.write<bool>(glowObjectManager + (glowIndex * 0x38) + 0x28, true);
+        mem.write<bool>(glowObjectManager + (glowIndex * 0x38) + 0x29, false);
     }
 
 

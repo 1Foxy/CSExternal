@@ -42,6 +42,9 @@ namespace SDK
 		}
 		return l;
 	}
+	float Length() {
+		return std::sqrt(x * x + y * y + z * z);
+	}
 	void Normalize(VVector3& v) {
 		while (v.y > 180) {
 			v.y -= 360;

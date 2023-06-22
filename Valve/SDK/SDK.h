@@ -117,9 +117,6 @@ namespace SDK
 
 			return false; // No entity found under crosshair
 		}
-
-
-
 	};
 	extern c_player cplayer;
 
@@ -127,6 +124,8 @@ namespace SDK
 	{
 		return mem.read<c_player*>(g_client_base + hazedumper::signatures::dwLocalPlayer);
 	}
+
+
 
 
 }

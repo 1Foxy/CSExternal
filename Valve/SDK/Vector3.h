@@ -25,6 +25,10 @@ public:
 		return x * x + y * y + z * z;
 	}
 
+	float Length() {
+		return std::sqrt(x * x + y * y + z * z);
+	}
+
 	SDK::Vector2D CalculateAngles(const VVector3& vec) {
 		float x = vec.x;
 		float y = vec.y;

@@ -10,19 +10,21 @@
 
 c_memory mem = c_memory("csgo.exe");
 
-void __fastcall loopFunction()
+void loopFunction()
 {
     while (true)
     {
         oMisc.Bunnyhop();
         oVisuals.Noflash();
         oVisuals.Fov();
+        oRecoilControlSystem.RCS();
         oAimbot.aimbot();
         oVisuals.NoHands();
         oVisuals.Glow();
+        /*oMisc.AutoAccept();*/
 
         // Sleep for 5ms to not use 100% cpu
-        std::this_thread::sleep_for(std::chrono::milliseconds(5));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }
 
