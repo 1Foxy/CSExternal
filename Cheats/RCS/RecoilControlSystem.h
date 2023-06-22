@@ -10,12 +10,10 @@ public:
 private:
     VVector3 ClampAngle(VVector3 angle);
     void ControlSpray();
-    int ShotsFired = 0;
+    int* ShotsFired = 0;
     VVector3 Angle;
     VVector3 AimPunch;
     VVector3 OldAngle;
-    HMODULE ClientDll = nullptr;
-    HMODULE EngineDll = nullptr;
     DWORD LocalPlayer = 0;
     DWORD ClientState = 0;
 }; extern RecoilControlSystem oRecoilControlSystem;

@@ -25,9 +25,28 @@ VVector3 RecoilControlSystem::ClampAngle(VVector3 angle)
     return angle;
 }
 
+struct Vec3
+{
+    float x, y, z;
+    Vec3 operator+(Vec3 d)
+    {
+		return { x + d.x, y + d.y, z + d.z };
+	}
+    Vec3 operator-(Vec3 d)
+    {
+		return { x - d.x, y - d.y, z - d.z };
+	}
+    Vec3 operator*(float d)
+    {
+        return { x * d, y * d, z * d };
+    }
+};
+
+Vec3* aimRecoilPunch;
+
 void RecoilControlSystem::ControlSpray()
 {
-    ShotsFired = mem.read<int>(LocalPlayer + hazedumper::netvars::m_iShotsFired);
+    ShotsFired = (int*)mem.read<DWORD>(LocalPlayer + hazedumper::netvars::m_iShotsFired);
     if (ShotsFired > 1)
     {
         Angle = mem.read<VVector3>(LocalPlayer + hazedumper::netvars::m_aimPunchAngle);
@@ -40,7 +59,6 @@ void RecoilControlSystem::ControlSpray()
         OldAngle = mem.read<VVector3>(ClientState + hazedumper::signatures::dwClientState_ViewAngles);
     }
 }
-
 
 void RecoilControlSystem::RCS()
 {

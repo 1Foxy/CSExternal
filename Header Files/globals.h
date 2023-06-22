@@ -15,6 +15,7 @@ namespace Globals {
 	inline int aimbotKey = 1;
 	inline int aimbotFOV = 5;
 	inline float predictionTime = 0.f;
+	inline bool UseMaxLockDistance = true;
 	inline int MaxLockDistance = 100000000;
 	inline bool UseFOV = true;
 

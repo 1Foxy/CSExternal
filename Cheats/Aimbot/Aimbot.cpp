@@ -99,6 +99,7 @@ void Aimbot::aimbot() {
     });
 
     // Check if its in the max lock distance
+    if (Globals::UseMaxLockDistance)
     for (auto it = players.begin(); it != players.end();) {
         if (!MaxLockDistance(localPlayer, it->entity)) {
             it = players.erase(it);
