@@ -21,11 +21,12 @@ void loopFunction()
         oVisuals.NoHands();
         oVisuals.Glow();
         oMisc.AutoAccept();
-   /*     oVisuals.WeaponGlow();*/
 
+        // Sleep for 5ms to not use 100% cpu
         std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
 }
+
 
 // Main code
 int APIENTRY WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
@@ -43,6 +44,8 @@ int APIENTRY WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     if (!mem.attach())
     {
         printf("waiting for csgo.exe...\n");
+        // execute steam://open/730 in cmd to start csgo
+
 
         while (!mem.attach())
             Sleep(500);

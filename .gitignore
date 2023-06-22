@@ -1,13 +1,21 @@
 
+*.db-shm
+*.opendb
+*.ipch
+*.db
+*.db-wal
+.vs/Base/v17/.suo
+*.lock
+*.vsidx
 *.tlog
+*.json
+*.command
+*.log
 *.obj
+*.pdb
+Debug/ImGui Loader Base.vcxproj.FileListAbsolute.txt
+Debug/Hazedumper.h.ifc
+*.ilk
 *.recipe
 *.exe
-*.ilk
-*.pdb
-*.ifc
-*.json
-*.txt
-*.log
 *.idb
-*.command

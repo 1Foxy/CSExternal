@@ -20,6 +20,10 @@ template< typename Function > Function GetMethod(PVOID Base, DWORD Index)
 	return (Function)(dwAddress);
 }
 
+
+
+namespace SDK
+{
 #define IN_ATTACK		(1 << 0)
 #define IN_JUMP			(1 << 1)
 #define IN_DUCK			(1 << 2)
@@ -48,8 +52,6 @@ template< typename Function > Function GetMethod(PVOID Base, DWORD Index)
 #define IN_LOOKSPIN		(1 << 25)
 #define MULTIPLAYER_BACKUP 150
 
-namespace SDK
-{
 	class bf_read;
 	class bf_write;
 
@@ -94,6 +96,7 @@ namespace SDK
 		bool      hasbeenpredicted;   // 0x48
 		char      pad_0x4C[0x18];     // 0x4C
 	};
+
 
 	class CVerifiedUserCmd
 	{

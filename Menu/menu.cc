@@ -13,8 +13,7 @@ void CenterText(const char* text);
 
 int selectedItemIndex = 0;
 int selectedClanTagIndex = 0;
-const char* items[] = { "Head", "Chest", "Stomach", "Penis", "Feet" };
-const char* ClanTagItems[] = { "None", "SexHuis", "GameSense", "Test", "Test34" };
+const char* items[] = { "Head", "Neck", "Chest", "Stomach", "Penis", "Feet" };
 
 void ui::renderMenu() {
     if (!globals.active) return;
@@ -53,28 +52,25 @@ void ui::renderMenu() {
                     ImGui::SameLine();
                     if (ImGui::Combo(".", &selectedItemIndex, items, IM_ARRAYSIZE(items)))
                     {
-                        //head  = 0
-                        //chest = 1
-                       //stomach = 4
-                        //penis = 2
-                        //feet  = 3       
-
                         switch (selectedItemIndex)
                         {
                         case 0:
-                            oAimbot.selectedTargetBoneIndex = 7;
+                            oAimbot.selectedTargetBoneIndex = 8; // accurate head
                             break;
                         case 1:
-                            oAimbot.selectedTargetBoneIndex = 6;
+                            oAimbot.selectedTargetBoneIndex = 7; // neck
                             break;
                         case 2:
-                            oAimbot.selectedTargetBoneIndex = 4;
+                            oAimbot.selectedTargetBoneIndex = 6; //chest
                             break;
                         case 3:
-                            oAimbot.selectedTargetBoneIndex = 0;
+                            oAimbot.selectedTargetBoneIndex = 4; //stomach
                             break;
                         case 4:
-                            oAimbot.selectedTargetBoneIndex = 77;
+                            oAimbot.selectedTargetBoneIndex = 0; // penis
+                            break;
+                        case 5:
+                            oAimbot.selectedTargetBoneIndex = 77; //feet // not very accurate (it changes with Model)
                             break;
                         }
                     }
@@ -120,8 +116,8 @@ void ui::renderMenu() {
                 ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 5);
                 BeginChild("##pages", ImVec2(150, 250), TRUE);
                 {
-                    ImGui::Checkbox("bhop", &Globals::bhop);
-                    //ImGui::Checkbox("Autoaccept", &Globals::autoAccept);
+                    ImGui::Checkbox("Bhop", &Globals::bhop);
+                    ImGui::Checkbox("Autoaccept", &Globals::autoAccept);
                 }
                 EndChild();
                 ImGui::SameLine();

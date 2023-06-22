@@ -1,6 +1,7 @@
 #include "Misc.h"
 #include "../../Valve/SDK/Const.h"
 #include "../../Valve/SDK/SDK.h"
+#include "../../Valve/SDK/CInput.h"
 
 void Misc::Bunnyhop()
 {
@@ -26,6 +27,7 @@ void Misc::Bunnyhop()
     }
 
 }
+
 void Misc::AutoAccept()
 {
     if (Globals::autoAccept)
@@ -38,8 +40,10 @@ void Misc::AutoAccept()
         //    mem.write<int>(clientState + hazedumper::signatures::dwClientState_State, 0); // Set the state to 0 to accept the match
         //}
     }
-
 }
+
+
+
 Misc oMisc;
 
 

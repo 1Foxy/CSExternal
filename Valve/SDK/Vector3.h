@@ -7,7 +7,6 @@
 #include <corecrt_math_defines.h>
 #include "../../../../../../Program Files (x86)/Microsoft DirectX SDK (June 2010)/Include/d3dx9.h"
 
-
 class VVector3 {
 public:
 	float x, y, z;

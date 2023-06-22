@@ -14,7 +14,7 @@ namespace ui {
 }
 
 namespace ui {
-	const char window_title[255] = ".";
+	const char window_title[255] = "BruhBelike";
 	inline ImVec2 screen_res{ 000, 000 };
 	inline ImVec2 window_pos{ 0, 0 };
 	inline ImVec2 window_size{ 500, 300 };

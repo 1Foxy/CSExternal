@@ -5,15 +5,12 @@
 
 namespace Globals {
 
-
-
-
-
 	//aimbot
 	inline bool Aimbot = false;
 	inline bool autoShoot = false;
 	inline bool lockClosestPlayer = true;
 	inline bool prediction = false;
+	inline bool RCS = true;
 
 	inline int autoShootDelay = 50;
 	inline float aimbotSmooth = 1.f;
@@ -28,6 +25,7 @@ namespace Globals {
 	inline bool No_Hands = false;
 	inline bool No_Flash = false;
 
+	inline bool UseFOV = true;
 	inline int FOV = 90;
 
 	//misc
@@ -37,10 +35,17 @@ namespace Globals {
 	//global
 	inline bool KeepConsoleOpen = true;
 
+	inline float EnemyglowColorRed = 1.f;
+	inline float EnemyglowColorGreen = 0.f;
+	inline float EnemyglowColorBlue = 1.f;
 
+	inline float weaponGlowColorRed = 1.f;
+	inline float weaponGlowColorGreen = 0.f;
+	inline float weaponGlowColorBlue = 1.f;
 
-
-
+	inline float TeamglowColorRed = 0.f;
+	inline float TeamglowColorGreen = 1.f;
+	inline float TeamglowColorBlue = 0.f;
 
 }
 

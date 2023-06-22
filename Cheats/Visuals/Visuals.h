@@ -1,5 +1,7 @@
 #pragma once
 #include "../../Valve/SDK/Color.h"
+// globals
+#include "../../Header Files/globals.h"
 
 __declspec(align(16)) struct Color
 {
@@ -8,8 +10,6 @@ __declspec(align(16)) struct Color
 
 	float r, g, b, a;
 };
-
-constexpr const auto color = Color{ 1.f, 0.f, 1.f };
 
 class Visuals
 {

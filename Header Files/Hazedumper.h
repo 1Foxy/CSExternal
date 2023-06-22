@@ -9,6 +9,7 @@ namespace hazedumper {
 	constexpr ::std::int64_t timestamp = 1686124261;
 	namespace Private {
 		constexpr ::std::ptrdiff_t m_iClass = 0x117c8; //m_iClass	Integer	0x117c8
+		constexpr ::std::ptrdiff_t m_flDuckSpeed = 0x2fc0; //m_flDuckSpeed	Float	0x2fc0
 	}
 
 	namespace netvars {

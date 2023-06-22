@@ -3,6 +3,7 @@
 class Aimbot
 {
 public:
-	int selectedTargetBoneIndex = 7; // head
+	
+	int selectedTargetBoneIndex = 8; // head
 	void aimbot();
 }; extern Aimbot oAimbot;
