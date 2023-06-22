@@ -10,7 +10,7 @@
 
 c_memory mem = c_memory("csgo.exe");
 
-void __fastcall loopFunction()
+void __fastcall loopFunction() 
 {
     while (true)
     {

@@ -115,7 +115,7 @@ void __fastcall Aimbot::aimbot()
             mem.write<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles, newAngles.x);
             mem.write<float>(enginePointer + hazedumper::signatures::dwClientState_ViewAngles + 0x4, newAngles.y);
 
-            Sleep(1);
+            //Sleep(1);
         }
     }
 }
