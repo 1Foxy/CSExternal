@@ -21,6 +21,8 @@
 #define	PLANE_ANYZ		5
 
 
+#define MAX_PLAYERS 65
+
 constexpr int MAX_ENTITIES = 2048;
 
 //-----------------------------------------------------------------------------

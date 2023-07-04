@@ -2,7 +2,7 @@
 #include "Header Files/globals.h"
 #include "Header Files/memory.hpp"
 #include "Valve/Engine.h"
-#include "Menu/menu.hh"
+#include "Menu/menu.h"
 #include "Header Files/common.h"
 #include "Header Files/hazedumper.h"
 #include "Valve/SDK/Color.h"
@@ -17,11 +17,11 @@ void loopFunction()
         oMisc.Bunnyhop();
         oVisuals.Noflash();
         oVisuals.Fov();
-        oRecoilControlSystem.RCS();
+        oAimbot.RCS();
         oAimbot.aimbot();
         oVisuals.NoHands();
         oVisuals.Glow();
-        /*oMisc.AutoAccept();*/
+        oMisc.AutoAccept();
 
         // Sleep for 5ms to not use 100% cpu
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
@@ -46,7 +46,6 @@ int APIENTRY WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     {
         printf("waiting for csgo.exe...\n");
         // execute steam://open/730 in cmd to start csgo
-
 
         while (!mem.attach())
             Sleep(500);

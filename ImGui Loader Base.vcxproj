@@ -138,7 +138,6 @@
   <ItemGroup>
     <ClCompile Include="Cheats\Aimbot\Aimbot.cpp" />
     <ClCompile Include="Cheats\Misc\Misc.cpp" />
-    <ClCompile Include="Cheats\RCS\RecoilControlSystem.cpp" />
     <ClCompile Include="Valve\SDK\SDK.cpp" />
     <ClCompile Include="Valve\SDK\CRC.cpp" />
     <ClCompile Include="Valve\Engine.cpp" />
@@ -146,7 +145,7 @@
     <ClCompile Include="functions\mouse.cpp" />
     <ClCompile Include="Header Files\Hazedumper.h" />
     <ClCompile Include="Header Files\UI.cpp" />
-    <ClCompile Include="Menu\menu.cc" />
+    <ClCompile Include="Menu\menu.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -162,8 +161,6 @@
   <ItemGroup>
     <ClInclude Include="Cheats\Aimbot\Aimbot.h" />
     <ClInclude Include="Cheats\Misc\Misc.h" />
-    <ClInclude Include="Cheats\RCS\RecoilControlSystem.h" />
-    <ClInclude Include="Header Files\Init.h" />
     <ClInclude Include="Valve\SDK\Color.h" />
     <ClInclude Include="Valve\SDK\SDK.h" />
     <ClInclude Include="Valve\SDK\Const.h" />
@@ -174,7 +171,7 @@
     <ClInclude Include="font\custom.h" />
     <ClInclude Include="font\icons.h" />
     <ClInclude Include="Header Files\memory.hpp" />
-    <ClInclude Include="Menu\menu.hh" />
+    <ClInclude Include="Menu\menu.h" />
     <ClInclude Include="Header Files\UI.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />

@@ -2,6 +2,7 @@
 #include "../../Valve/SDK/Const.h"
 #include "../../Valve/SDK/SDK.h"
 #include "../../Valve/SDK/CInput.h"
+#include "../../imgui/imgui.h"
 
 void Misc::Bunnyhop()
 {
@@ -25,20 +26,15 @@ void Misc::Bunnyhop()
             mem.write<int>(g_client_base + hazedumper::signatures::dwForceJump, 4);
         }
     }
-
 }
+
+typedef void* (*CreateInterfaceFn)(const char*, int*);
 
 void Misc::AutoAccept()
 {
     if (Globals::autoAccept)
     {
-        //DWORD clientState = hazedumper::signatures::dwClientState;
-        //DWORD gameState = mem.read<DWORD>(clientState + hazedumper::signatures::dwClientState_State);
 
-        //if (gameState == 6) // 6 represents the "ACCEPT" state
-        //{
-        //    mem.write<int>(clientState + hazedumper::signatures::dwClientState_State, 0); // Set the state to 0 to accept the match
-        //}
     }
 }
 

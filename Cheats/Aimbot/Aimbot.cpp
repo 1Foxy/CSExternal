@@ -185,4 +185,39 @@ bool Aimbot::IsCrouchingOrInAir(DWORD entity) {
     return entityFlags == 263 || entityFlags == 256; // Change these values according to the specific game
 }
 
+void Aimbot::RCS()
+{
+    static VVector3 oldAimPunchAngle = { 0, 0, 0 };
+    static uintptr_t dwClientState = mem.read<uintptr_t>(g_engine + hazedumper::signatures::dwClientState);
+    VVector3 aimPunchAngle;
+
+    if (!Globals::RCS)
+        return;
+
+    DWORD localPlayer = mem.read<DWORD>(g_client_base + hazedumper::signatures::dwLocalPlayer);
+    if (!localPlayer)
+        return;
+
+    float rcsMultiplier = Globals::rcsAmount * 0.0205f;
+
+    int shotsFired = mem.read<int>(localPlayer + hazedumper::netvars::m_iShotsFired);
+    if (localPlayer && shotsFired > 1)
+    {
+        aimPunchAngle = mem.read<VVector3>(localPlayer + hazedumper::netvars::m_aimPunchAngle);
+        aimPunchAngle.x *= rcsMultiplier;
+        aimPunchAngle.y *= rcsMultiplier;
+        VVector3 viewAngle = mem.read<VVector3>(dwClientState + hazedumper::signatures::dwClientState_ViewAngles);
+        viewAngle.x = viewAngle.x - (aimPunchAngle.x - oldAimPunchAngle.x);
+        viewAngle.y = viewAngle.y - (aimPunchAngle.y - oldAimPunchAngle.y);
+        oldAimPunchAngle = aimPunchAngle;
+        SDK::clamp(viewAngle.x, viewAngle.y);
+        mem.write<float>(dwClientState + hazedumper::signatures::dwClientState_ViewAngles, viewAngle.x);
+        mem.write<float>(dwClientState + hazedumper::signatures::dwClientState_ViewAngles + 0x4, viewAngle.y);
+    }
+    else
+    {
+        oldAimPunchAngle = { 0, 0, 0 };
+    }
+}
+
 Aimbot oAimbot;

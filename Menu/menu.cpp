@@ -1,4 +1,4 @@
-#include "menu.hh"
+#include "menu.h"
 #include "../imgui/imgui_internal.h"
 #include "../imgui/imgui.h"
 #include "../font/icons.h"
@@ -11,20 +11,14 @@ using namespace ImGui;
 static void HelpMarker(const char* desc);
 void CenterText(const char* text);
 
-int selectedItemIndex = 0;
-int selectedClanTagIndex = 0;
-const char* items[] = { "Head", "Neck", "Chest", "Stomach", "Penis", "Feet" };
-
 void ui::renderMenu() {
     if (!globals.active) return;
 
-    ImGui::SetNextWindowPos(ImVec2(window_pos.x, window_pos.y), ImGuiCond_Once);
-    ImGui::SetNextWindowSize(ImVec2(window_size.x, window_size.y));
-    ImGui::SetNextWindowBgAlpha(1.0f);
-    ImGui::Begin(window_title, &globals.active, window_flags);
-    { 
-      
+    MenuStyle();
 
+    ImGui::Begin(window_title, &globals.active, window_flags);
+    {
+      
         BeginChild("##buttons" , ImVec2(100,265));
         {
             SetCursorPosX(20);
@@ -73,39 +67,36 @@ void ui::renderMenu() {
                             oAimbot.selectedTargetBoneIndex = 77; //feet // not very accurate (it changes with Model)
                             break;
                         }
-                    }
-                    if (Globals::Aimbot)
-                    {
-                        ImGui::Checkbox("UseFOV", &Globals::UseFOV);
-                    }
+                    }            
+
+                    ImGui::Checkbox("FOV", &Globals::UseFOV);
+                    ImGui::SameLine();
+                    ImGui::SliderInt("      ", &Globals::aimbotFOV, 0, 140, "%d");
+
+                    ImGui::SliderFloat("Smooth", &Globals::aimbotSmooth, 0.01f, 1.f, "%f");
+
+                    ImGui::Checkbox("Distance", &Globals::UseMaxLockDistance);
+                    if (!Globals::UseMaxLockDistance) { Globals::MaxLockDistance == 100000000; }
+                    ImGui::SameLine();
+                    ImGui::SliderInt("    ", &Globals::MaxLockDistance, 0, 500, "%d");
+
+                    ImGui::Checkbox("autoShoot", &Globals::autoShoot);
+                    ImGui::SameLine();
+                    ImGui::SliderInt("", &Globals::autoShootDelay, 0, 300, "%d");
+                    
                 }
                 EndChild();
                 ImGui::SameLine();
                 BeginChild("##pagesss", ImVec2(150, 250), TRUE);
-                {
-                    if (Globals::Aimbot)
-                    {
-                        if (Globals::UseFOV)
-                            ImGui::SliderInt("FOV", &Globals::aimbotFOV, 0, 140, "%d");
-                        ImGui::SliderFloat("Smooth", &Globals::aimbotSmooth, 0.01f, 1.f, "%f");
-                        ImGui::Checkbox("Use Max Lock Distance", &Globals::UseMaxLockDistance);
-                        if (Globals::UseMaxLockDistance)
-                            ImGui::SliderInt("Max Lock Distance", &Globals::MaxLockDistance, 500, 1000000, "%d");
-
-                    }
+                {             
+                    ImGui::Checkbox("RCS", &Globals::RCS);
+                    ImGui::SameLine();
+                    ImGui::SliderFloat("   ", &Globals::rcsAmount, 0.0f, 100.0f);
                 }
                 EndChild();
                 ImGui::SameLine();
                 BeginChild("##pagesssss", ImVec2(150, 250), TRUE);
                 {
-                    if (Globals::Aimbot) {
-                        ImGui::Checkbox("autoShoot", &Globals::autoShoot);
-                        ImGui::SameLine();
-                        ImGui::SliderInt("", &Globals::autoShootDelay, 0, 300, "%d");
-                        ImGui::Checkbox(" ", &Globals::prediction);
-                        ImGui::SameLine();
-                        ImGui::SliderFloat("Prediction ", &Globals::predictionTime, 0.01f, 10.f, "%f");
-                    }
                 }
                 EndChild();
 
@@ -118,11 +109,7 @@ void ui::renderMenu() {
                 {
                     ImGui::Checkbox("Glow", &Globals::Glow);
                     ImGui::Checkbox("Teammates", &Globals::Glow_Team);
-                   // ImGui::Checkbox("Weapons", &Globals::Glow_Weapons);
                     ImGui::SliderInt("Camera FOV", &Globals::CameraFOV, 1, 140, "%d");
-                    
-           
-
 
                 }
                 EndChild();
@@ -136,7 +123,6 @@ void ui::renderMenu() {
             }
             if (globals.page == 2)
             {
-
                 ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 5);
                 ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 5);
                 BeginChild("##pages", ImVec2(150, 250), TRUE);
@@ -203,5 +189,41 @@ void CenterText(const char* text)
 }
 
 void ui::MenuStyle() {
-    ImGui::StyleColorsDark();
+    ImGuiStyle& style = ImGui::GetStyle();
+
+    style.ScrollbarSize = 1;
+    style.GrabMinSize = 1;
+    style.WindowBorderSize = 0;
+    style.ChildBorderSize = 1;
+    style.PopupBorderSize = 0;
+    style.FrameBorderSize = 1;
+    style.WindowRounding = 0;
+    style.ChildRounding = 0;
+    style.FrameRounding = 0;
+    style.PopupRounding = 0;
+    style.ScrollbarRounding = 0;
+    style.GrabRounding = 0;
+
+    ImGui::SetNextWindowPos(ImVec2(-10, -10));
+    ImGui::SetNextWindowBgAlpha(0.1f);
+
+    //Window Size
+    ImGui::SetNextWindowSize({ 600.000000f, 300.000000f });
+    ImGui::SetNextWindowPos(ImVec2((1920 - 840) * .5, (1080 - 500) * .5), ImGuiCond_Once);
+
+    style.Colors[ImGuiCol_WindowBg] = ImColor(0, 0, 0, 255);
+    style.Colors[ImGuiCol_Text] = ImColor(255, 0, 34, 200);
+    style.Colors[ImGuiCol_Button] = ImColor(0, 0, 0, 255); 
+    style.Colors[ImGuiCol_FrameBg] = ImColor(0, 0, 0, 255); 
+    style.Colors[ImGuiCol_FrameBgHovered] = ImColor(0, 0, 0, 0);
+    style.Colors[ImGuiCol_FrameBgActive] = ImColor(0, 0, 0, 0);
+
+    style.Colors[ImGuiCol_TitleBgActive] = ImColor(0, 0, 0, 255);
+    style.Colors[ImGuiCol_CheckMark] = ImColor(255, 0, 34, 255);
+
+    style.Colors[ImGuiCol_SliderGrab] = ImColor(255, 0, 34, 255);
+    style.Colors[ImGuiCol_SliderGrabActive] = ImColor(255, 0, 34, 255);
+
+    style.Colors[ImGuiCol_ButtonHovered] = ImColor(0, 0, 0, 0);
+    style.Colors[ImGuiCol_ButtonActive] = ImColor(0, 0, 0, 0);
 }

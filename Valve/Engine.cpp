@@ -1,7 +1,6 @@
 #include "Engine.h"
 #include <stdio.h>
 #include "../Header Files/memory.hpp"
-#include "../Header Files/Init.h"
 
 namespace Engine {
 	bool Initialize() {
@@ -23,10 +22,14 @@ namespace Engine {
 		else
 			printf("client.dll -> 0x%x\n", g_client_base);
 
+		g_vstlib = reinterpret_cast<std::uintptr_t>(mem.get_module("vstdlib.dll").modBaseAddr);
+		if (!g_vstlib)
+			return false;
+		else
+			printf("vstdlib.dll -> 0x%x\n", g_vstlib);
 
 
 		printf("Engine Init!\n\n");
-		INIT::Initialize();
 		return true;
 	}
 }

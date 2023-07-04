@@ -9,19 +9,17 @@ namespace Globals {
 	inline bool Aimbot = false;
 	inline bool autoShoot = false;
 	inline bool prediction = false;
-	inline bool RCS = true;
+	inline bool RCS = false;
+	inline bool UseMaxLockDistance = false;
+	inline bool UseFOV = true;
+
 	inline int autoShootDelay = 50;
 	inline float aimbotSmooth = 1.f;
 	inline int aimbotKey = 1;
 	inline int aimbotFOV = 5;
-	inline float predictionTime = 0.f;
-	inline bool UseMaxLockDistance = true;
-	inline int MaxLockDistance = 100000000;
-	inline bool UseFOV = true;
+	inline int MaxLockDistance = 500;
+	inline float rcsAmount = 0.0f;
 
-	// RCS
-	inline float RCS_Amount = 1.0f;
-	inline bool RCS_Enabled = false;
 
 	//visuals
 	inline bool Glow = false;
@@ -29,6 +27,7 @@ namespace Globals {
 	inline bool Glow_Weapons = false;
 	inline bool No_Hands = false;
 	inline bool No_Flash = false;
+
 	inline int CameraFOV = 90;
 
 

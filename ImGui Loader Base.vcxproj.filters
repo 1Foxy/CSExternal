@@ -20,7 +20,7 @@
       <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu\menu.cc" />
+    <ClCompile Include="Menu\menu.cpp" />
     <ClCompile Include="functions\mouse.cpp" />
     <ClCompile Include="functions\keyboard.cpp" />
     <ClCompile Include="Header Files\Hazedumper.h" />
@@ -38,7 +38,6 @@
     <ClCompile Include="Valve\SDK\SDK.cpp" />
     <ClCompile Include="Cheats\Visuals\Visuals.cpp" />
     <ClCompile Include="Cheats\Aimbot\Aimbot.cpp" />
-    <ClCompile Include="Cheats\RCS\RecoilControlSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -66,7 +65,7 @@
       <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="main.h" />
-    <ClInclude Include="Menu\menu.hh" />
+    <ClInclude Include="Menu\menu.h" />
     <ClInclude Include="Header Files\globals.h" />
     <ClInclude Include="font\icons.h" />
     <ClInclude Include="font\custom.h" />
@@ -89,8 +88,6 @@
     <ClInclude Include="Cheats\Visuals\Visuals.h" />
     <ClInclude Include="Cheats\Aimbot\Aimbot.h" />
     <ClInclude Include="Valve\SDK\Color.h" />
-    <ClInclude Include="Cheats\RCS\RecoilControlSystem.h" />
-    <ClInclude Include="Header Files\Init.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">

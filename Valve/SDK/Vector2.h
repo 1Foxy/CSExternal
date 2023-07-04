@@ -1,7 +1,19 @@
 #pragma once
+#include <algorithm> // Include the <algorithm> header for std::min and std::max
+
 
 namespace SDK
 {
+	template <typename T>
+	void clamp(T& value1, T& value2)
+	{
+		T min = value1 < value2 ? value1 : value2;
+		T max = value1 > value2 ? value1 : value2;
+
+		value1 = (value1 < min) ? min : ((value1 > max) ? max : value1);
+		value2 = (value2 < min) ? min : ((value2 > max) ? max : value2);
+	}
+
 	typedef float vec_t;
 	// 2D Vector
 	class Vector2D {
