@@ -16,6 +16,8 @@
 #include "../Cheats/Misc/Misc.h"
 #include "../Cheats/Visuals/Visuals.h"
 #include "../Cheats/Aimbot/Aimbot.h"
+#include "../Cheats/RCS/RecoilControlSystem.h"
+#include "../Cheats/Triggerbot/TriggerBot.h"
 
 
 
