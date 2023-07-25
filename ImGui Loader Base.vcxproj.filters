@@ -34,7 +34,6 @@
     <ClCompile Include="Valve\SDK\Vector2.cpp" />
     <ClCompile Include="Valve\SDK\Vector3.cpp" />
     <ClCompile Include="Cheats\Misc\Misc.cpp" />
-    <ClCompile Include="Valve\SDK\CRC.cpp" />
     <ClCompile Include="Valve\SDK\SDK.cpp" />
     <ClCompile Include="Cheats\Visuals\Visuals.cpp" />
     <ClCompile Include="Cheats\Aimbot\Aimbot.cpp" />
@@ -67,8 +66,6 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="Menu\menu.h" />
     <ClInclude Include="Header Files\globals.h" />
-    <ClInclude Include="font\icons.h" />
-    <ClInclude Include="font\custom.h" />
     <ClInclude Include="Header Files\common.h" />
     <ClInclude Include="Header Files\memory.hpp" />
     <ClInclude Include="Header Files\UI.h" />
@@ -78,12 +75,7 @@
     <ClInclude Include="Valve\SDK\Vector3.h" />
     <ClInclude Include="Valve\SDK\Vector2.h" />
     <ClInclude Include="Valve\SDK\Matrix.h" />
-    <ClInclude Include="Valve\SDK\CInput.h" />
-    <ClInclude Include="Valve\SDK\ButtonCode.h" />
-    <ClInclude Include="Valve\SDK\InputEnums.h" />
     <ClInclude Include="Cheats\Misc\Misc.h" />
-    <ClInclude Include="Valve\SDK\CRC.h" />
-    <ClInclude Include="Valve\SDK\Const.h" />
     <ClInclude Include="Valve\SDK\SDK.h" />
     <ClInclude Include="Cheats\Visuals\Visuals.h" />
     <ClInclude Include="Cheats\Aimbot\Aimbot.h" />

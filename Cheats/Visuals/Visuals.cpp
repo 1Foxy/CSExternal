@@ -2,8 +2,6 @@
 #include "../../Header Files/globals.h"
 #include "../../Header Files/Hazedumper.h"
 #include "../../Valve/SDK/SDK.h"
-#include "../../Valve/SDK/Const.h"
-#include "../../Valve/SDK/CInput.h"
 
 void Visuals::Noflash()
 {

@@ -1,7 +1,6 @@
 #include "menu.h"
 #include "../imgui/imgui_internal.h"
 #include "../imgui/imgui.h"
-#include "../font/icons.h"
 #include "../Header Files/UI.h"
 #include "../Header Files/common.h"
 
@@ -80,18 +79,15 @@ void ui::renderMenu() {
                     ImGui::SameLine();
                     ImGui::SliderInt("    ", &Globals::MaxLockDistance, 0, 500, "%d");
 
-                    ImGui::Checkbox("autoShoot", &Globals::autoShoot);
+      /*              ImGui::Checkbox("autoShoot", &Globals::autoShoot);
                     ImGui::SameLine();
-                    ImGui::SliderInt("", &Globals::autoShootDelay, 0, 300, "%d");
+                    ImGui::SliderInt("", &Globals::autoShootDelay, 0, 300, "%d");*/
                     
                 }
                 EndChild();
                 ImGui::SameLine();
                 BeginChild("##pagesss", ImVec2(150, 250), TRUE);
                 {             
-                    ImGui::Checkbox("RCS", &Globals::RCS);
-                    ImGui::SameLine();
-                    ImGui::SliderFloat("   ", &Globals::rcsAmount, 0.0f, 100.0f);
                 }
                 EndChild();
                 ImGui::SameLine();
@@ -128,7 +124,6 @@ void ui::renderMenu() {
                 BeginChild("##pages", ImVec2(150, 250), TRUE);
                 {
                     ImGui::Checkbox("Bhop", &Globals::bhop);
-                    ImGui::Checkbox("Autoaccept", &Globals::autoAccept);
                 }
                 EndChild();
                 ImGui::SameLine();

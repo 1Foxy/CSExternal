@@ -139,7 +139,6 @@
     <ClCompile Include="Cheats\Aimbot\Aimbot.cpp" />
     <ClCompile Include="Cheats\Misc\Misc.cpp" />
     <ClCompile Include="Valve\SDK\SDK.cpp" />
-    <ClCompile Include="Valve\SDK\CRC.cpp" />
     <ClCompile Include="Valve\Engine.cpp" />
     <ClCompile Include="functions\keyboard.cpp" />
     <ClCompile Include="functions\mouse.cpp" />
@@ -163,13 +162,9 @@
     <ClInclude Include="Cheats\Misc\Misc.h" />
     <ClInclude Include="Valve\SDK\Color.h" />
     <ClInclude Include="Valve\SDK\SDK.h" />
-    <ClInclude Include="Valve\SDK\Const.h" />
-    <ClInclude Include="Valve\SDK\CRC.h" />
     <ClInclude Include="Valve\Engine.h" />
     <ClInclude Include="Header Files\common.h" />
     <ClInclude Include="Header Files\globals.h" />
-    <ClInclude Include="font\custom.h" />
-    <ClInclude Include="font\icons.h" />
     <ClInclude Include="Header Files\memory.hpp" />
     <ClInclude Include="Menu\menu.h" />
     <ClInclude Include="Header Files\UI.h" />
@@ -182,9 +177,6 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="Valve\SDK\ButtonCode.h" />
-    <ClInclude Include="Valve\SDK\CInput.h" />
-    <ClInclude Include="Valve\SDK\InputEnums.h" />
     <ClInclude Include="Valve\SDK\Matrix.h" />
     <ClInclude Include="Valve\SDK\Vector2.h" />
     <ClInclude Include="Valve\SDK\Vector3.h" />

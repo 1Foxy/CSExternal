@@ -6,7 +6,6 @@
 #include "Header Files/common.h"
 #include "Header Files/hazedumper.h"
 #include "Valve/SDK/Color.h"
-#include "Valve/SDK/CInput.h"
 
 c_memory mem = c_memory("csgo.exe");
 
@@ -17,11 +16,10 @@ void loopFunction()
         oMisc.Bunnyhop();
         oVisuals.Noflash();
         oVisuals.Fov();
-        oAimbot.RCS();
+ /*       oAimbot.RCS();*/
         oAimbot.aimbot();
         oVisuals.NoHands();
         oVisuals.Glow();
-        oMisc.AutoAccept();
 
         // Sleep for 5ms to not use 100% cpu
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
