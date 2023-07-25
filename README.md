@@ -2,7 +2,7 @@
 External CS:GO cheat with ImGui
 
 ### Features
-- Aimbot
+- Aimbot (L_ALT)
 - Recoil control system
 - Glow
 - Anti flash
